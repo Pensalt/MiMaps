@@ -35,7 +35,6 @@
         android:inputType="textEmailAddress"
         android:textColorHint="@color/black"
         android:textSize="12dp"
-        android:shadowColor="@color/buttons"
         android:background="@drawable/roundedbuttons"/>
 
     <Space
@@ -53,7 +52,6 @@
         android:inputType="textPassword"
         android:textColorHint="@color/black"
         android:textSize="12dp"
-        android:shadowColor="@color/buttons"
         android:background="@drawable/roundedbuttons"
         />
 
@@ -67,11 +65,13 @@
         android:layout_height="61dp"
         android:layout_gravity="center"
         android:background="@drawable/roundedbuttons"
+        android:backgroundTint="#FFFFFF"
         android:foregroundTint="#FFFFFF"
         android:gravity="center"
         android:text="SIGN IN"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        app:iconTint="#ABABAB" />
 
     <Space
         android:layout_width="match_parent"

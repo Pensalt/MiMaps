@@ -36,14 +36,14 @@
             android:layout_width="330dp"
             android:layout_height="47dp"
             android:layout_gravity="center"
+            android:background="@drawable/roundedbuttons"
             android:ems="10"
             android:gravity="center"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:textColor="@color/black"
-            android:background="@drawable/roundedbuttons"
-
-            android:textSize="12dp"/>
+            android:textColorHint="@color/black"
+            android:textSize="12dp" />
 
         <Space
             android:layout_width="match_parent"
@@ -60,6 +60,7 @@
             android:inputType="textPassword"
             android:textColor="@color/black"
             android:background="@drawable/roundedbuttons"
+            android:textColorHint="@color/black"
             android:textSize="12dp"/>
 
         <Space
@@ -77,6 +78,7 @@
             android:inputType="textPassword"
             android:textColor="@color/black"
             android:background="@drawable/roundedbuttons"
+            android:textColorHint="@color/black"
             android:textSize="12dp"/>
 
         <Space
