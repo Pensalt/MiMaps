@@ -3,6 +3,7 @@ package com.shlompie.mimaps;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,13 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        // SU stands for sign up.
+        emailET = findViewById(R.id.etEmailSU);
+        passwordET = findViewById(R.id.etPasswordSU);
+        confirmPasswordET = findViewById(R.id.etConPassSU);
+        confirmBtn = findViewById(R.id.btnSignUpSU);
+
 
         mAuth = FirebaseAuth.getInstance(); // Initializing the FirebaseAuth instance.
 
@@ -57,7 +65,9 @@ public class SignUpActivity extends AppCompatActivity {
                             {
                                 Log.i("signup","Sign Up successful");
 
-                                // Make intent to go to the map page
+                                // Intent to go to the main page.
+                                Intent goToMain = new Intent(SignUpActivity.this, MainActivity.class);
+                                startActivity(goToMain);
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
