@@ -24,36 +24,64 @@
         android:layout_width="match_parent"
         android:layout_height="56dp" />
 
-    <EditText
-        android:id="@+id/etEmailSI"
-        android:layout_width="330dp"
-        android:layout_height="47dp"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:textColorHint="@color/black"
-        android:textSize="12dp"
-        android:background="@drawable/roundedbuttons"/>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/user_text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundedbuttons"
+            android:textColorHint="@color/black"
+            android:hint="Username"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+<!--    <EditText-->
+<!--        android:id="@+id/etEmailSI"-->
+<!--        android:layout_width="330dp"-->
+<!--        android:layout_height="47dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:ems="10"-->
+<!--        android:gravity="center"-->
+<!--        android:hint="Email"-->
+<!--        android:inputType="textEmailAddress"-->
+<!--        android:textColorHint="@color/black"-->
+<!--        android:textSize="12dp"-->
+<!--        android:background="@drawable/roundedbuttons"/>-->
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="38dp" />
 
-    <EditText
-        android:id="@+id/etPasswordSI"
-        android:layout_width="330dp"
-        android:layout_height="47dp"
-        android:layout_gravity="center"
-        android:ems="10"
-        android:gravity="center"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textColorHint="@color/black"
-        android:textSize="12dp"
-        android:background="@drawable/roundedbuttons"
-        />
+<!--    <EditText-->
+<!--        android:id="@+id/etPasswordSI"-->
+<!--        android:layout_width="330dp"-->
+<!--        android:layout_height="47dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:ems="10"-->
+<!--        android:gravity="center"-->
+<!--        android:hint="Password"-->
+<!--        android:inputType="textPassword"-->
+<!--        android:textColorHint="@color/black"-->
+<!--        android:textSize="12dp"-->
+<!--        android:background="@drawable/roundedbuttons"-->
+<!--        />-->
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/pass_text_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/etPasswordSI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundedbuttons"
+            android:textColorHint="@color/black"
+            android:hint="Password"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Space
         android:layout_width="match_parent"

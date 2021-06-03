@@ -31,59 +31,103 @@
             android:layout_width="match_parent"
             android:layout_height="45dp" />
 
-        <EditText
-            android:id="@+id/etEmailSU"
-            android:layout_width="330dp"
-            android:layout_height="47dp"
-            android:layout_gravity="center"
-            android:background="@drawable/roundedbuttons"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Email"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black"
-            android:textSize="12dp" />
+<!--        <EditText-->
+<!--            android:id="@+id/etEmailSU"-->
+<!--            android:layout_width="330dp"-->
+<!--            android:layout_height="47dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:background="@drawable/roundedbuttons"-->
+<!--            android:ems="10"-->
+<!--            android:gravity="center"-->
+<!--            android:hint="Email"-->
+<!--            android:inputType="textEmailAddress"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textColorHint="@color/black"-->
+<!--            android:textSize="12dp" />-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etEmailSU"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundedbuttons"
+                android:textColorHint="@color/black"
+                android:hint="Username"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
-        <EditText
-            android:id="@+id/etPasswordSU"
-            android:layout_width="330dp"
-            android:layout_height="47dp"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:textColor="@color/black"
-            android:background="@drawable/roundedbuttons"
-            android:textColorHint="@color/black"
-            android:textSize="12dp"/>
+<!--        <EditText-->
+<!--            android:id="@+id/etPasswordSU"-->
+<!--            android:layout_width="330dp"-->
+<!--            android:layout_height="47dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:ems="10"-->
+<!--            android:gravity="center"-->
+<!--            android:hint="Password"-->
+<!--            android:inputType="textPassword"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:background="@drawable/roundedbuttons"-->
+<!--            android:textColorHint="@color/black"-->
+<!--            android:textSize="12dp"/>-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pass_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etPasswordSU"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundedbuttons"
+                android:textColorHint="@color/black"
+                android:hint="Password"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
-        <EditText
-            android:id="@+id/etConPassSU"
-            android:layout_width="330dp"
-            android:layout_height="47dp"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            android:textColor="@color/black"
-            android:background="@drawable/roundedbuttons"
-            android:textColorHint="@color/black"
-            android:textSize="12dp"/>
+<!--        <EditText-->
+<!--            android:id="@+id/etConPassSU"-->
+<!--            android:layout_width="330dp"-->
+<!--            android:layout_height="47dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:ems="10"-->
+<!--            android:gravity="center"-->
+<!--            android:hint="Confirm Password"-->
+<!--            android:inputType="textPassword"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:background="@drawable/roundedbuttons"-->
+<!--            android:textColorHint="@color/black"-->
+<!--            android:textSize="12dp"/>-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/confirm_pass_text_input_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etConPassSU"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/roundedbuttons"
+                android:textColorHint="@color/black"
+                android:hint="Confirm Password"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="24dp" />
+            android:layout_height="40dp" />
 
         <Button
             android:id="@+id/btnSignUpSU"
