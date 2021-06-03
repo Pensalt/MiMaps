@@ -2,4 +2,11 @@
     <string name="app_name">MiMaps</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="full_name_settings">Full Name</string>
+    <string name="email_settings">Email Address</string>
+
+
+    <string name="close_btn">X</string>
+    <string name="preferred_units_settings">Preferred Units of Measure</string>
+    <string name="metric_imperial_heading">Metric / Imperial Units</string>
 </resources>
