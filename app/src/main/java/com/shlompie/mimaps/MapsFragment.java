@@ -124,7 +124,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
             enableLocationComponent(mapboxMap.getStyle());
         } else {
             Toast.makeText(getContext(), R.string.user_location_permission_not_granted, Toast.LENGTH_LONG).show();
-            finish();
+            //finish(); // finish was giving an error
         }
     }
 
@@ -137,7 +137,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
         mapboxMap.setStyle(getString(R.string.navigation_guidance_day), new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
-                // not sure why these two arent working
+                // not sure why these two arent working --edit working now?
                 enableLocationComponent(style);
                 addDestinationIconSymbolLayer(style);
 
@@ -195,7 +195,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
         getRoute(originPoint, destinationPoint);
         searchBtn_map.setEnabled(true);
-        searchBtn_map.setBackgroundResource(R.color.mapboxBlue); // put the colour here
+        searchBtn_map.setBackgroundResource(R.color.mapboxBlue);
         return true;
     }
 
@@ -224,7 +224,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
                         // Draw the route on the map
                         if (navigationMapRoute != null) {
-                            navigationMapRoute.removeRoute();
+                            navigationMapRoute.removeRoute(); // deprecated method might cause an issue for us removing the route.
                         } else {
                             navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute);
                         }
@@ -248,12 +248,18 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
             locationComponent.activateLocationComponent(getContext(), loadedMapStyle); // Will this deprecation be an issue?
             locationComponent.setLocationComponentEnabled(true);
             // Set the component's camera mode
-            locationComponent.setCameraMode(CameraMode.TRACKING);
+            locationComponent.setCameraMode(CameraMode.TRACKING); // what is this for?
         } else {
             permissionsManager = new PermissionsManager(this);
             permissionsManager.requestLocationPermissions(getActivity());
         }
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
 
 
     // Have to make all of these public otherwise it clashes with the fragments public setting

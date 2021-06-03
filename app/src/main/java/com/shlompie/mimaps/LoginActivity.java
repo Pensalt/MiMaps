@@ -33,11 +33,12 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance(); // Initializing the FirebaseAuth instance.
 
-        emailET = findViewById(R.id.emailET_login);
-        passwordET = findViewById(R.id.passwordET_login);
-        loginBtn = findViewById(R.id.loginButton_login);
-        signupBtn = findViewById(R.id.signupButton_login);
-        logoImg = findViewById(R.id.LogoImgView_login);
+        // SI stands for sign in. Used to mark which components are on the sign in (login) screen.
+        emailET = findViewById(R.id.etEmailSI);
+        passwordET = findViewById(R.id.etPasswordSI);
+        loginBtn = findViewById(R.id.btnLoginSI);
+        signupBtn = findViewById(R.id.btnRegisterSI);
+        logoImg = findViewById(R.id.logoSI);
 
 
         // Logging the user in if they are authenticated.
@@ -63,8 +64,8 @@ public class LoginActivity extends AppCompatActivity {
                                     emailET.getText().clear();
                                     passwordET.getText().clear();
                                     Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                                    Intent goToLog = new Intent(LoginActivity.this, // Put landing page here.class);
-                                    startActivity(goToLog);
+                                    Intent goToMain = new Intent(LoginActivity.this, MainActivity.class);
+                                    startActivity(goToMain);
                                 }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
@@ -87,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 emailET.getText().clear(); // Clearing the input field for the user's email.
                 passwordET.getText().clear(); // Clearing the input field for the user's password.
-                Intent goToSignUp = new Intent(LoginActivity.this,SignUp.class);
+                Intent goToSignUp = new Intent(LoginActivity.this,SignUpActivity.class);
                 startActivity(goToSignUp);
             }
         });
