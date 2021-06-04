@@ -13,20 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="56dp" />
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/logoSI"
         android:layout_width="match_parent"
         android:layout_height="144dp"
         android:contentDescription="logo"
-        android:src="@drawable/compass" />
+        android:src="@drawable/compass" />-->
 
-<!--    <com.airbnb.lottie.LottieAnimationView-->
-<!--        android:id="@+id/animationView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="144dp"-->
-<!--        app:lottie_rawRes="navigationLottie"-->
-<!--        app:lottie_autoPlay="true"-->
-<!--        app:lottie_loop="true"/>-->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        app:lottie_rawRes="navigationLottie"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
 
     <Space
         android:layout_width="match_parent"
