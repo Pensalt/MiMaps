@@ -35,6 +35,7 @@ import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.plugins.traffic.TrafficPlugin;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
@@ -159,6 +160,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                 enableLocationComponent(style);
                 addDestinationIconSymbolLayer(style);
                 initSearchFab();
+                TrafficPlugin trafficPlugin = new TrafficPlugin(mapView, mapboxMap, style);
 
                 //addUserLocations();
 
@@ -388,10 +390,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     }
 
 
-  // Get Route Method.
+    // Get Route Method.
     private void getRoute(Point origin, Point destination) {
         //use the bool to alter the value of the string between metric and imperial
-        /*String measurementSystem;
+        String measurementSystem;
         if (useMetric)
         {
             measurementSystem = "metric";
@@ -399,13 +401,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
         else
         {
             measurementSystem = "imperial";
-        }*/
+        }
 
         NavigationRoute.builder(getContext())
                 .accessToken(Mapbox.getAccessToken())
                 .origin(origin)
                 .destination(destination)
-                .voiceUnits(DirectionsCriteria.METRIC)
+                .voiceUnits(measurementSystem)
                 .build()
                 .getRoute(new Callback<DirectionsResponse>() {
                     @Override
