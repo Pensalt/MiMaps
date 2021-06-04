@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 // classes needed to initialize map
+import com.mapbox.api.directions.v5.DirectionsCriteria;
 import com.mapbox.api.geocoding.v5.models.CarmenFeature;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.mapboxsdk.Mapbox;
@@ -154,10 +155,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
         mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
             @Override
             public void onStyleLoaded(@NonNull Style style) {
-                initSearchFab();
 
                 enableLocationComponent(style);
                 addDestinationIconSymbolLayer(style);
+                initSearchFab();
+
                 //addUserLocations();
 
                 mapboxMap.addOnMapClickListener(MapsFragment.this::onMapClick); // not sure if this will work
@@ -223,6 +225,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
     private void initSearchFab() {
 
+        //TODO: Add geocoding types to the intent builder. This will allow for filtering landmarks based on type.
+        // Check discord for documentation on the above.
+
+        Point originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
+                locationComponent.getLastKnownLocation().getLatitude()); // Getting origin point.
 
         view.findViewById(R.id.fab_location_search).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,6 +237,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                 Intent intent = new PlaceAutocomplete.IntentBuilder()
                         .accessToken(Mapbox.getAccessToken() != null ? Mapbox.getAccessToken() : getString(R.string.mapbox_access_token))
                         .placeOptions(PlaceOptions.builder()
+                                .proximity(originPoint) // Bias results closer to user's location.
                                 .backgroundColor(Color.parseColor("#EEEEEE"))
                                 .limit(10)
                                 //.addInjectedFeature(home)
@@ -274,8 +282,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
-
-
 
             // Retrieve selected location's CarmenFeature
             CarmenFeature selectedCarmenFeature = PlaceAutocomplete.getPlace(data);
@@ -360,8 +366,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
         );
         loadedMapStyle.addLayer(destinationSymbolLayer);
     }
-//
-//
+
     @SuppressWarnings({"MissingPermission"})
     // If users haven't granted permissions - app requires fine location permissions granted
     @Override
@@ -378,17 +383,29 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
         getRoute(originPoint, destinationPoint);
         searchBtn_map.setEnabled(true);
-        searchBtn_map.setBackgroundResource(R.color.mapboxBlue);
+        searchBtn_map.setBackgroundResource(R.color.mapboxBlue); // This color is not showing for some reason.
         return true;
     }
 
 
   // Get Route Method.
     private void getRoute(Point origin, Point destination) {
+        //use the bool to alter the value of the string between metric and imperial
+        /*String measurementSystem;
+        if (useMetric)
+        {
+            measurementSystem = "metric";
+        }
+        else
+        {
+            measurementSystem = "imperial";
+        }*/
+
         NavigationRoute.builder(getContext())
                 .accessToken(Mapbox.getAccessToken())
                 .origin(origin)
                 .destination(destination)
+                .voiceUnits(DirectionsCriteria.METRIC)
                 .build()
                 .getRoute(new Callback<DirectionsResponse>() {
                     @Override
@@ -440,8 +457,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
     // Method to determine if the app must use the must use the metric or the imperial system.
     public boolean useMetric(){
-        boolean useMet = false; // false is just a placeholder for now
+        boolean useMet = true; // true is just a placeholder for now. Rather metric than imperial
 
+        //TODO: Create user object. Need to figure out how it will work with favourite POI first.
+
+        //TODO: Use firebase to get users preference.
 
         return useMet;
     }
