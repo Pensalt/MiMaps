@@ -24,7 +24,7 @@
 <!--        android:id="@+id/animationView"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="144dp"-->
-<!--        app:lottie_rawRes="@raw/navigationLottie"-->
+<!--        app:lottie_rawRes="navigationLottie"-->
 <!--        app:lottie_autoPlay="true"-->
 <!--        app:lottie_loop="true"/>-->
 
