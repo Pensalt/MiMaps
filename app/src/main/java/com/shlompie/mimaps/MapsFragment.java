@@ -299,6 +299,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                                             ((Point) selectedCarmenFeature.geometry()).longitude()))
                                     .zoom(14)
                                     .build()), 4000);
+
+                    // Building route to the searched location
+
                 }
             }
         }
