@@ -27,6 +27,14 @@
             android:src="@drawable/compass"
             app:srcCompat="@drawable/compass" />
 
+        <!--    <com.airbnb.lottie.LottieAnimationView-->
+        <!--        android:id="@+id/animationView"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="144dp"-->
+        <!--        app:lottie_rawRes="navigationLottie"-->
+        <!--        app:lottie_autoPlay="true"-->
+        <!--        app:lottie_loop="true"/>-->
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="45dp" />
