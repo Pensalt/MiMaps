@@ -300,8 +300,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                                     .zoom(14)
                                     .build()), 4000);
 
-                    // Building route to the searched location
-
+                    // Building route to the searched location \\
+                    Point originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
+                            locationComponent.getLastKnownLocation().getLatitude()); // Getting origin point.
+                    // Getting carmen location LatLon
+                    double lat = ((Point) selectedCarmenFeature.geometry()).latitude();
+                    double lon = ((Point) selectedCarmenFeature.geometry()).longitude();
+                    Point destinationPoint = Point.fromLngLat(lon,lat);
+                    getRoute(originPoint, destinationPoint);
                 }
             }
         }
