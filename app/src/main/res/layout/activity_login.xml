@@ -30,7 +30,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@color/white"

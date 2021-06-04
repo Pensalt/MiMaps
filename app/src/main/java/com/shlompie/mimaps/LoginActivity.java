@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -25,6 +26,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText emailET, passwordET;
     Button loginBtn, signupBtn;
     ImageView logoImg;
+    TextInputLayout usernameTxtInputLayout, passTxtInputLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +37,13 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance(); // Initializing the FirebaseAuth instance.
 
         // SI stands for sign in. Used to mark which components are on the sign in (login) screen.
-        emailET = findViewById(R.id.etEmailSI);
+        emailET = findViewById(R.id.emailEditText);
         passwordET = findViewById(R.id.etPasswordSI);
         loginBtn = findViewById(R.id.btnLoginSI);
         signupBtn = findViewById(R.id.btnRegisterSI);
         logoImg = findViewById(R.id.logoSI);
+        usernameTxtInputLayout = findViewById(R.id.user_text_input_layout);
+        passTxtInputLayout = findViewById(R.id.pass_text_input_layout);
 
 
         // Logging the user in if they are authenticated.
