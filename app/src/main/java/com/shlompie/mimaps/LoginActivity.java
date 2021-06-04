@@ -1,4 +1,4 @@
-package com.shlompie.mimaps;
+ package com.shlompie.mimaps;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
                     switch (item.getItemId()) {
                         case R.id.nav_map: selectedFragment = new MapsFragment();
                             break;
-                        case R.id.nav_landmarks: selectedFragment = new SettingsFragment();
+                        case R.id.nav_landmarks: selectedFragment = new LandmarksFragment();
                             break;
-                        case R.id.nav_settings: selectedFragment = new LandmarksFragment();
+                        case R.id.nav_settings: selectedFragment = new SettingsFragment();
                             break;
                     }
 
