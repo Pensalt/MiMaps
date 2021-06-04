@@ -40,10 +40,11 @@
         <EditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
+            android:inputType="textEmailAddress"
             android:layout_height="wrap_content"
             android:textColorHint="@color/white"
             android:background="@color/cardview_dark_background"
-            android:hint="Username"/>
+            android:hint="Email"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 <!--    <EditText-->
@@ -85,6 +86,7 @@
         <EditText
             android:id="@+id/etPasswordSI"
             android:layout_width="match_parent"
+            android:inputType="textPassword"
             android:layout_height="wrap_content"
             android:background="@color/cardview_dark_background"
             android:textColorHint="@color/white"

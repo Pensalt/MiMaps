@@ -62,6 +62,8 @@
                 android:id="@+id/etEmailSU"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:inputType="textEmailAddress"
                 android:background="@color/cardview_dark_background"
                 android:textColorHint="@color/black"
                 android:hint="Username"/>
@@ -94,6 +96,7 @@
                 android:id="@+id/etPasswordSU"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:background="@color/cardview_dark_background"
                 android:textColorHint="@color/black"
                 android:hint="Password"/>
@@ -127,6 +130,7 @@
                 android:id="@+id/etConPassSU"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPassword"
                 android:background="@color/cardview_dark_background"
                 android:textColorHint="@color/white"
                 android:hint="Confirm Password"/>

@@ -71,7 +71,7 @@ import java.util.zip.Inflater;
  * Use the {@link MapsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapsFragment extends Fragment implements OnMapReadyCallback, PermissionsListener {
+public class MapsFragment extends Fragment implements OnMapReadyCallback, MapboxMap.OnMapClickListener, PermissionsListener {
 
     // Variables for adding location layer
     private MapView mapView;
@@ -156,7 +156,26 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Permis
             public void onStyleLoaded(@NonNull Style style) {
                 initSearchFab();
 
+                enableLocationComponent(style);
+                addDestinationIconSymbolLayer(style);
                 //addUserLocations();
+
+                mapboxMap.addOnMapClickListener(MapsFragment.this::onMapClick); // not sure if this will work
+                searchBtn_map = view.findViewById(R.id.startButton);
+
+                // On click listener for the search button
+                searchBtn_map.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        boolean simulateRoute = true;
+                        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
+                                .directionsRoute(currentRoute).shouldSimulateRoute(simulateRoute)
+                                .build();
+
+                        // Call this method with context from within an Activity
+                        NavigationLauncher.startNavigation(getActivity(), options);
+                    }
+                });
 
                 // Add the symbol layer icon to map for future use
                 style.addImage(symbolIconId, BitmapFactory.decodeResource(
@@ -170,6 +189,37 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Permis
             }
         });
     }
+
+    //    @Override
+//    public void onMapReady(@NonNull MapboxMap mapboxMap) {
+//        this.mapboxMap = mapboxMap;
+//        mapboxMap.setStyle(getString(R.string.navigation_guidance_day), new Style.OnStyleLoaded() {
+//            @Override
+//            public void onStyleLoaded(@NonNull Style style) {
+//                // not sure why these two arent working --edit working now?
+//                enableLocationComponent(style);
+//                addDestinationIconSymbolLayer(style);
+//
+//                mapboxMap.addOnMapClickListener(MapsFragment.this::onMapClick); // not sure if this will work
+//                searchBtn_map = view.findViewById(R.id.startButton);
+//
+//                // On click listener for the search button
+//                searchBtn_map.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        boolean simulateRoute = true;
+//                        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
+//                                .directionsRoute(currentRoute).shouldSimulateRoute(simulateRoute)
+//                                .build();
+//
+//                        // Call this method with context from within an Activity
+//                        NavigationLauncher.startNavigation(getActivity(), options);
+//                    }
+//                });
+//            }
+//        });
+//
+//    }
 
     private void initSearchFab() {
 
@@ -191,6 +241,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Permis
         });
     }
 
+    // Use a factory pattern for the users saved/favourited landmarks
     // add user locations once initial functionality is sorted
 //    private void addUserLocations() {
 //        home = CarmenFeature.builder().text("Mapbox SF Office")
@@ -224,11 +275,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Permis
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_AUTOCOMPLETE) {
 
-// Retrieve selected location's CarmenFeature
+
+
+            // Retrieve selected location's CarmenFeature
             CarmenFeature selectedCarmenFeature = PlaceAutocomplete.getPlace(data);
 
-// Create a new FeatureCollection and add a new Feature to it using selectedCarmenFeature above.
-// Then retrieve and update the source designated for showing a selected location's symbol layer icon
+            // Create a new FeatureCollection and add a new Feature to it using selectedCarmenFeature above.
+            // Then retrieve and update the source designated for showing a selected location's symbol layer icon
 
             if (mapboxMap != null) {
                 Style style = mapboxMap.getStyle();
@@ -239,7 +292,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Permis
                                 new Feature[] {Feature.fromJson(selectedCarmenFeature.toJson())}));
                     }
 
-// Move map camera to the selected location
+                    // Move map camera to the selected location
                     mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(
                             new CameraPosition.Builder()
                                     .target(new LatLng(((Point) selectedCarmenFeature.geometry()).latitude(),
@@ -285,79 +338,79 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Permis
 //
 //    // Other methods
 //
-//    private void addDestinationIconSymbolLayer(@NonNull Style loadedMapStyle) {
-//        loadedMapStyle.addImage("destination-icon-id",
-//                BitmapFactory.decodeResource(this.getResources(), R.drawable.mapbox_marker_icon_default));
-//        GeoJsonSource geoJsonSource = new GeoJsonSource("destination-source-id");
-//        loadedMapStyle.addSource(geoJsonSource);
-//        SymbolLayer destinationSymbolLayer = new SymbolLayer("destination-symbol-layer-id", "destination-source-id");
-//        destinationSymbolLayer.withProperties(
-//                iconImage("destination-icon-id"),
-//                iconAllowOverlap(true),
-//                iconIgnorePlacement(true)
-//        );
-//        loadedMapStyle.addLayer(destinationSymbolLayer);
-//    }
+    private void addDestinationIconSymbolLayer(@NonNull Style loadedMapStyle) {
+        loadedMapStyle.addImage("destination-icon-id",
+                BitmapFactory.decodeResource(this.getResources(), R.drawable.mapbox_marker_icon_default));
+        GeoJsonSource geoJsonSource = new GeoJsonSource("destination-source-id");
+        loadedMapStyle.addSource(geoJsonSource);
+        SymbolLayer destinationSymbolLayer = new SymbolLayer("destination-symbol-layer-id", "destination-source-id");
+        destinationSymbolLayer.withProperties(
+                iconImage("destination-icon-id"),
+                iconAllowOverlap(true),
+                iconIgnorePlacement(true)
+        );
+        loadedMapStyle.addLayer(destinationSymbolLayer);
+    }
 //
 //
-//    @SuppressWarnings({"MissingPermission"})
-//    // If users haven't granted permissions - app requires fine location permissions granted
-//    @Override
-//    public boolean onMapClick(@NonNull LatLng point) {
-//
-//        Point destinationPoint = Point.fromLngLat(point.getLongitude(), point.getLatitude());
-//        Point originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
-//                locationComponent.getLastKnownLocation().getLatitude());
-//
-//        GeoJsonSource source = mapboxMap.getStyle().getSourceAs("destination-source-id");
-//        if (source != null) {
-//            source.setGeoJson(Feature.fromGeometry(destinationPoint));
-//        }
-//
-//        getRoute(originPoint, destinationPoint);
-//        searchBtn_map.setEnabled(true);
-//        searchBtn_map.setBackgroundResource(R.color.mapboxBlue);
-//        return true;
-//    }
-//
-//
-//    // Get Route Method.
-//    private void getRoute(Point origin, Point destination) {
-//        NavigationRoute.builder(getContext())
-//                .accessToken(Mapbox.getAccessToken())
-//                .origin(origin)
-//                .destination(destination)
-//                .build()
-//                .getRoute(new Callback<DirectionsResponse>() {
-//                    @Override
-//                    public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
-//                        // You can get the generic HTTP info about the response
-//                        Log.d(TAG, "Response code: " + response.code());
-//                        if (response.body() == null) {
-//                            Log.e(TAG, "No routes found, make sure you set the right user and access token.");
-//                            return;
-//                        } else if (response.body().routes().size() < 1) {
-//                            Log.e(TAG, "No routes found");
-//                            return;
-//                        }
-//
-//                        currentRoute = response.body().routes().get(0);
-//
-//                        // Draw the route on the map
-//                        if (navigationMapRoute != null) {
-//                            navigationMapRoute.removeRoute(); // deprecated method might cause an issue for us removing the route.
-//                        } else {
-//                            navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute);
-//                        }
-//                        navigationMapRoute.addRoute(currentRoute);
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<DirectionsResponse> call, Throwable throwable) {
-//                        Log.e(TAG, "Error: " + throwable.getMessage());
-//                    }
-//                });
-//    }
+    @SuppressWarnings({"MissingPermission"})
+    // If users haven't granted permissions - app requires fine location permissions granted
+    @Override
+    public boolean onMapClick(@NonNull LatLng point) {
+
+        Point destinationPoint = Point.fromLngLat(point.getLongitude(), point.getLatitude());
+        Point originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
+                locationComponent.getLastKnownLocation().getLatitude());
+
+        GeoJsonSource source = mapboxMap.getStyle().getSourceAs("destination-source-id");
+        if (source != null) {
+            source.setGeoJson(Feature.fromGeometry(destinationPoint));
+        }
+
+        getRoute(originPoint, destinationPoint);
+        searchBtn_map.setEnabled(true);
+        searchBtn_map.setBackgroundResource(R.color.mapboxBlue);
+        return true;
+    }
+
+
+  // Get Route Method.
+    private void getRoute(Point origin, Point destination) {
+        NavigationRoute.builder(getContext())
+                .accessToken(Mapbox.getAccessToken())
+                .origin(origin)
+                .destination(destination)
+                .build()
+                .getRoute(new Callback<DirectionsResponse>() {
+                    @Override
+                    public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
+                        // You can get the generic HTTP info about the response
+                        Log.d(TAG, "Response code: " + response.code());
+                        if (response.body() == null) {
+                            Log.e(TAG, "No routes found, make sure you set the right user and access token.");
+                            return;
+                        } else if (response.body().routes().size() < 1) {
+                            Log.e(TAG, "No routes found");
+                            return;
+                        }
+
+                        currentRoute = response.body().routes().get(0);
+
+                        // Draw the route on the map
+                        if (navigationMapRoute != null) {
+                            navigationMapRoute.removeRoute(); // deprecated method might cause an issue for us removing the route.
+                        } else {
+                            navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute);
+                        }
+                        navigationMapRoute.addRoute(currentRoute);
+                    }
+
+                    @Override
+                    public void onFailure(Call<DirectionsResponse> call, Throwable throwable) {
+                        Log.e(TAG, "Error: " + throwable.getMessage());
+                    }
+                });
+    }
 
     @SuppressWarnings({"MissingPermission"})
     private void enableLocationComponent(@NonNull Style loadedMapStyle) {
