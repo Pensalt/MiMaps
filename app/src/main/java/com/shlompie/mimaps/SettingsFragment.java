@@ -11,14 +11,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class SettingsFragment extends Fragment {
     private View view;
     ImageView logoImg;
     TextInputLayout usernameTxtInputLayout, emailTxtInputLayout;
-    Switch metSwitch;
+    SwitchMaterial metSwitch;
     Button logoutBTN;
+
 
 
     public SettingsFragment() {
