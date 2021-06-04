@@ -1,109 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="350dp"
-    android:layout_height="475dp"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    android:padding="5dp"
-    android:id="@+id/preferences">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/slateBG"
+    android:orientation="vertical">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="56dp" />
+
+    <ImageView
+        android:id="@+id/logoSI"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:contentDescription="logo"
+        android:src="@drawable/compass" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="15dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="25sp"
+        android:text="Profile Settings"
+        android:textColor="@color/white"
+        android:textAlignment="center">
+    </TextView>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/username_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/userNameET_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:background="@color/cardview_dark_background"
+            android:hint="Userame"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/emailET_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:background="@color/cardview_dark_background"
+            android:hint="Email Address"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
 
     <Switch
         android:id="@+id/swUnitsPrefs"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="248dp"
-        android:layout_marginEnd="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:height="15dp"
         android:text="@string/metric_imperial_heading"
         android:textSize="18sp"
+        android:textColor="@color/white"
         android:thumbTint="@color/colorPrimaryDark"
-        android:trackTint="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="@id/fullNameET_settings"
-        app:layout_constraintTop_toTopOf="@id/fullNameET_settings" />
+        android:trackTint="@color/colorPrimary"/>
 
-    <TextView
-        android:id="@+id/exitTxt"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:fontFamily="sans-serif-light"
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+
+    <Button
+        android:id="@+id/btnLogout"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+
+        android:layout_gravity="center"
+        android:background="@drawable/roundedbuttons"
         android:gravity="center"
-        android:text="@string/close_btn"
-        android:textColor="@color/red"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="Logout"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
 
-    <EditText
-        android:id="@+id/fullNameET_settings"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="20dp"
-        android:autofillHints=""
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:ems="10"
-        android:hint="@string/full_name_settings"
-        android:inputType="textPersonName"
-        android:textCursorDrawable="@drawable/cursor_colour"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exitTxt"
-        tools:targetApi="o" />
 
-    <TextView
-        android:id="@+id/fullname_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/full_name_settings"
-        app:layout_constraintBottom_toTopOf="@+id/fullNameET_settings"
-        app:layout_constraintStart_toStartOf="@+id/fullNameET_settings" />
-
-    <TextView
-        android:id="@+id/units_Heading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="4dp"
-        android:text="@string/preferred_units_settings"
-        app:layout_constraintBottom_toTopOf="@+id/swUnitsPrefs"
-        app:layout_constraintStart_toStartOf="@id/fullNameET_settings" />
-
-    <TextView
-        android:id="@+id/email_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="128dp"
-        android:text="@string/email_settings"
-        app:layout_constraintBottom_toTopOf="@+id/units_Heading"
-        app:layout_constraintStart_toStartOf="@+id/units_Heading" />
-
-    <EditText
-        android:id="@+id/emailET_settings"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="20dp"
-        android:autofillHints=""
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:ems="10"
-        android:hint="@string/email_settings"
-        android:inputType="textEmailAddress"
-        android:textCursorDrawable="@drawable/cursor_colour"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_text"
-        tools:targetApi="o" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

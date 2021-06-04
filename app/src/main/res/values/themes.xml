@@ -5,10 +5,12 @@
         <item name="colorPrimary">#e4e6eb</item>
         <item name="colorPrimaryVariant">#e4e6eb</item>
         <item name="colorOnPrimary">#e4e6eb</item>
+
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/white</item>
         <item name="colorSecondaryVariant">@color/buttons</item>
         <item name="colorOnSecondary">@color/black</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
