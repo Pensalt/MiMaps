@@ -248,6 +248,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                                 .build(PlaceOptions.MODE_CARDS))
                         .build(getActivity());
                 startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
+                if(destinationSymbolLayer != null) mapboxMap.getStyle().removeLayer(destinationSymbolLayer);
             }
         });
     }
@@ -356,12 +357,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 //
 //    // Other methods
 
+    SymbolLayer destinationSymbolLayer;
     private void addDestinationIconSymbolLayer(@NonNull Style loadedMapStyle) {
         loadedMapStyle.addImage("destination-icon-id",
                 BitmapFactory.decodeResource(this.getResources(), R.drawable.blue_marker_view));
         GeoJsonSource geoJsonSource = new GeoJsonSource("destination-source-id");
         loadedMapStyle.addSource(geoJsonSource);
-        SymbolLayer destinationSymbolLayer = new SymbolLayer("destination-symbol-layer-id", "destination-source-id");
+        destinationSymbolLayer = new SymbolLayer("destination-symbol-layer-id", "destination-source-id");
         destinationSymbolLayer.withProperties(
                 iconImage("destination-icon-id"),
                 iconAllowOverlap(true),
