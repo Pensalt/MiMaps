@@ -14,6 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 // classes needed to initialize map
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
 import com.mapbox.api.geocoding.v5.models.CarmenFeature;
 import com.mapbox.geojson.FeatureCollection;
@@ -97,6 +103,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     private String geojsonSourceLayerId = "geojsonSourceLayerId";
     private String symbolIconId = "symbolIconId";
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
+
+
 
 
     public MapsFragment() {
@@ -242,13 +250,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                                 .proximity(originPoint) // Bias results closer to user's location.
                                 .backgroundColor(Color.parseColor("#EEEEEE"))
                                 .limit(10) // Limits search result to 10 locations.
-                                .geocodingTypes()
+                                .geocodingTypes() // This is how you filter landmarks based on preference.
                                 //.addInjectedFeature(home)
                                 //.addInjectedFeature(work)
                                 .build(PlaceOptions.MODE_CARDS))
                         .build(getActivity());
                 startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
-                if(destinationSymbolLayer != null) mapboxMap.getStyle().removeLayer(destinationSymbolLayer);
+                 if(destinationSymbolLayer != null) mapboxMap.getStyle().removeLayer(destinationSymbolLayer);
             }
         });
     }
@@ -410,7 +418,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                 .accessToken(Mapbox.getAccessToken())
                 .origin(origin)
                 .destination(destination)
-                .voiceUnits(measurementSystem)
+                .voiceUnits(measurementSystem) // Allows for the switch between metric and imperial units.
                 .build()
                 .getRoute(new Callback<DirectionsResponse>() {
                     @Override
@@ -461,8 +469,30 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
         }
     }
 
-    // Method to determine if the app must use the must use the metric or the imperial system.
-    public void getUserMeasurementSystem(){
+    // Method to get user preferences from firebase.
+    User u = new User(); // Declaring a user object so we can get the users info from firebase.
+    public void getUserPreferences(){
+        // Getting instances of FirebaseAuth and FirebaseDatabase.
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+
+        DatabaseReference ref = db.getReference(mAuth.getCurrentUser().getUid());
+        ref.child("user preferences").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //u = snapshot.
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
         useMetric = true; // true is just a placeholder for now. Rather metric than imperial
 
         //TODO: Create user object. Need to figure out how it will work with favourite POI first.
