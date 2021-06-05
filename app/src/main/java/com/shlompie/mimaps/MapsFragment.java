@@ -241,7 +241,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                         .placeOptions(PlaceOptions.builder()
                                 .proximity(originPoint) // Bias results closer to user's location.
                                 .backgroundColor(Color.parseColor("#EEEEEE"))
-                                .limit(10)
+                                .limit(10) // Limits search result to 10 locations.
+                                .geocodingTypes()
                                 //.addInjectedFeature(home)
                                 //.addInjectedFeature(work)
                                 .build(PlaceOptions.MODE_CARDS))
@@ -354,10 +355,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 //    }
 //
 //    // Other methods
-//
+
     private void addDestinationIconSymbolLayer(@NonNull Style loadedMapStyle) {
         loadedMapStyle.addImage("destination-icon-id",
-                BitmapFactory.decodeResource(this.getResources(), R.drawable.mapbox_marker_icon_default));
+                BitmapFactory.decodeResource(this.getResources(), R.drawable.blue_marker_view));
         GeoJsonSource geoJsonSource = new GeoJsonSource("destination-source-id");
         loadedMapStyle.addSource(geoJsonSource);
         SymbolLayer destinationSymbolLayer = new SymbolLayer("destination-symbol-layer-id", "destination-source-id");
@@ -427,6 +428,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                         // Draw the route on the map
                         if (navigationMapRoute != null) {
                             navigationMapRoute.removeRoute(); // deprecated method might cause an issue for us removing the route.
+
                         } else {
                             navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap, R.style.NavigationMapRoute);
                         }
@@ -458,14 +460,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     }
 
     // Method to determine if the app must use the must use the metric or the imperial system.
-    public boolean useMetric(){
-        boolean useMet = true; // true is just a placeholder for now. Rather metric than imperial
+    public void getUserMeasurementSystem(){
+        useMetric = true; // true is just a placeholder for now. Rather metric than imperial
 
         //TODO: Create user object. Need to figure out how it will work with favourite POI first.
 
         //TODO: Use firebase to get users preference.
-
-        return useMet;
     }
 
     @Override
