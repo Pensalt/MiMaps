@@ -5,6 +5,14 @@
     <string name="full_name_settings">Full Name</string>
     <string name="email_settings">Email Address</string>
 
+    <string-array name="programming_languages">
+        <item>Java</item>
+    </string-array>
+
+    <string-array name='description'>
+        <item> this is a random description</item>
+    </string-array>
+
 
     <string name="close_btn">X</string>
     <string name="preferred_units_settings">Preferred Units of Measure</string>
