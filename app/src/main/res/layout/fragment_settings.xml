@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/slateBG"
+    android:background="@drawable/map_bg"
+    android:backgroundTint="@color/blue_grey_800_overlay"
+    android:backgroundTintMode="screen"
     android:orientation="vertical">
 
     <Space
@@ -55,7 +57,7 @@
             android:layout_height="wrap_content"
             android:textColorHint="@color/white"
             android:background="@color/cardview_dark_background"
-            android:hint="Userame"/>
+            android:hint="Username"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Space

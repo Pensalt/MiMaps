@@ -6,6 +6,7 @@
     <color name="colorPrimaryDark">#3d5673</color>
     <color name="colorPrimary">#4E7CAC</color>
     <color name="slateBG">#18191a</color>
+    <color name="blue_grey_800_overlay">#FF000000</color>
 
     <color name="buttons">#FFABABAB</color>
 

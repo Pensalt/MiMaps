@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/slateBG"
+    android:background="@drawable/map_bg"
+    android:backgroundTint="@color/blue_grey_800_overlay"
+    android:backgroundTintMode="screen"
     >
 
     <LinearLayout

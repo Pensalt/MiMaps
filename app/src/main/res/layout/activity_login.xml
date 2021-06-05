@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/slateBG"
+    android:background="@drawable/map_bg"
+    android:backgroundTint="@color/blue_grey_800_overlay"
+    android:backgroundTintMode="screen"
     android:orientation="vertical"
     tools:context=".LoginActivity">
 
@@ -122,7 +124,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="Don't Have an Account?"
-        android:textSize="13dp"
+        android:textSize="13sp"
         android:textColor="@color/buttons"/>
 
     <Button
