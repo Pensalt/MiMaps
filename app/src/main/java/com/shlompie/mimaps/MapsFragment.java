@@ -1,6 +1,8 @@
 package com.shlompie.mimaps;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -9,19 +11,27 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 // classes needed to initialize map
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+//import com.google.firebase.database.DataSnapshot;
+//import com.google.firebase.database.DatabaseError;
+//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.FirebaseDatabase;
+//import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
+import com.mapbox.api.geocoding.v5.GeocodingCriteria;
+import com.mapbox.api.geocoding.v5.MapboxGeocoding;
 import com.mapbox.api.geocoding.v5.models.CarmenFeature;
+import com.mapbox.api.geocoding.v5.models.GeocodingResponse;
 import com.mapbox.geojson.FeatureCollection;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
@@ -62,6 +72,7 @@ import android.util.Log;
 // classes needed to launch navigation UI
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.mapbox.mapboxsdk.plugins.places.autocomplete.PlaceAutocomplete;
@@ -70,7 +81,9 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
 
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.Inflater;
 
 
@@ -93,6 +106,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     private NavigationMapRoute navigationMapRoute;
     // variables needed to initialize navigation
     private Button searchBtn_map;
+    private FloatingActionButton fab_favorite;
 
     private View view;
 
@@ -174,6 +188,51 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
                 mapboxMap.addOnMapClickListener(MapsFragment.this::onMapClick); // not sure if this will work
                 searchBtn_map = view.findViewById(R.id.startButton);
+                fab_favorite = view.findViewById(R.id.fab_favorite);
+                fab_favorite.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(lastLoc != null){
+                            AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                            builder.setTitle("New Location");
+
+                            final EditText input = new EditText(v.getContext());
+                            input.setHint("Location Name");
+                            input.setInputType(InputType.TYPE_CLASS_TEXT);
+                            builder.setView(input);
+
+                            builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                                    Map<String, Object> data = new HashMap<>();
+                                    data.put("user_email", currentUser.getEmail());
+                                    data.put("title", input.getText().toString());
+                                    data.put("latitude", lastLoc.getLatitude());
+                                    data.put("longitude", lastLoc.getLongitude());
+
+                                    db.collection("saved_landmarks").document().set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(view.getContext(), "Landmark Saved", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            });
+                            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                            builder.show();
+                        }
+                    }
+                });
 
                 // On click listener for the search button
                 searchBtn_map.setOnClickListener(new View.OnClickListener() {
@@ -380,6 +439,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
         loadedMapStyle.addLayer(destinationSymbolLayer);
     }
 
+    LatLng lastLoc = null;
+
     @SuppressWarnings({"MissingPermission"})
     // If users haven't granted permissions - app requires fine location permissions granted
     @Override
@@ -397,6 +458,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
         getRoute(originPoint, destinationPoint);
         searchBtn_map.setEnabled(true);
         searchBtn_map.setBackgroundResource(R.color.mapboxBlue); // This color is not showing for some reason.
+
+        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition((new CameraPosition.Builder()).target(point).zoom(14).build()));
+        lastLoc = point;
+        fab_favorite.setEnabled(true);
+
         return true;
     }
 
@@ -470,35 +536,35 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     }
 
     // Method to get user preferences from firebase.
-    User u = new User(); // Declaring a user object so we can get the users info from firebase.
-    public void getUserPreferences(){
-        // Getting instances of FirebaseAuth and FirebaseDatabase.
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase db = FirebaseDatabase.getInstance();
-
-        DatabaseReference ref = db.getReference(mAuth.getCurrentUser().getUid());
-        ref.child("user preferences").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //u = snapshot.
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-
-
-
-        useMetric = true; // true is just a placeholder for now. Rather metric than imperial
-
-        //TODO: Create user object. Need to figure out how it will work with favourite POI first.
-
-        //TODO: Use firebase to get users preference.
-    }
+//    User u = new User(); // Declaring a user object so we can get the users info from firebase.
+//    public void getUserPreferences(){
+//        // Getting instances of FirebaseAuth and FirebaseDatabase.
+//        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+//        FirebaseDatabase db = FirebaseDatabase.getInstance();
+//
+//        DatabaseReference ref = db.getReference(mAuth.getCurrentUser().getUid());
+//        ref.child("user preferences").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                //u = snapshot.
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//
+//
+//
+//
+//        useMetric = true; // true is just a placeholder for now. Rather metric than imperial
+//
+//        //TODO: Create user object. Need to figure out how it will work with favourite POI first.
+//
+//        //TODO: Use firebase to get users preference.
+//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

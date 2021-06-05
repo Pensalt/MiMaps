@@ -2,6 +2,7 @@ package com.shlompie.mimaps;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.model.Document;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,14 +62,29 @@ public class LandmarksFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
-        ArrayList<String[]> favorite_addresses = new ArrayList<>();
-        favorite_addresses.add(new String[]{"Home", "18 Montgomery Road"});
-        favorite_addresses.add(new String[]{"Work", "3 First Street"});
-        favorite_addresses.add(new String[]{"Shop", "1 Second Street"});
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        MyAdapter myAdapter = new MyAdapter(view.getContext(), favorite_addresses);
-        recyclerView.setAdapter(myAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        ArrayList<String[]> favorite_addresses = new ArrayList<>();
+
+        db.collection("saved_landmarks").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Map<String, Object> data = document.getData();
+
+                        favorite_addresses.add(new String[]{data.get("title").toString(), data.get("latitude").toString(), data.get("longitude").toString()});
+                    }
+
+                    MyAdapter myAdapter = new MyAdapter(view.getContext(), favorite_addresses);
+                    recyclerView.setAdapter(myAdapter);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                } else {
+
+                }
+            }
+        });
 
         return view;
     }
