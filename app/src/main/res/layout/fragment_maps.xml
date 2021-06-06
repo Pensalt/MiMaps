@@ -32,10 +32,10 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:background="@color/mapboxGrayLight"
+            android:background="@color/colorPrimary"
             android:enabled="false"
             android:text="Start navigation"
-            android:textColor="@color/mapboxWhite"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,11 +45,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:enabled="false"
             android:tint="@android:color/white"
             app:backgroundTint="@color/colorPrimary"
-            app:fabCustomSize="45dp"
             app:fabSize="auto"
             app:layout_constraintBottom_toTopOf="@+id/fab_location_search"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +64,7 @@
             app:backgroundTint="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@android:drawable/ic_search_category_default" />
+            app:srcCompat="@android:drawable/ic_search_category_default"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
