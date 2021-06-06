@@ -153,7 +153,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
         mapView.getMapAsync(this);
 
 
-
         return view;
     }
 
@@ -465,7 +464,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
         return true;
     }
-
 
     // Get Route Method.
     private void getRoute(Point origin, Point destination) {
