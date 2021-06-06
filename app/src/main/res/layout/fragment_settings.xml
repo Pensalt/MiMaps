@@ -49,10 +49,6 @@
         android:layout_width="match_parent"
         android:layout_height="16dp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/username_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -127,7 +123,6 @@
         android:layout_height="43dp"
         android:layout_gravity="center"
         android:height="15dp"
-        android:background=""
         android:gravity="center"
         android:text="@string/metric_imperial_heading"
         android:textColor="@color/white"
