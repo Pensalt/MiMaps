@@ -91,11 +91,6 @@ import java.util.Map;
 import java.util.zip.Inflater;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MapsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MapsFragment extends Fragment implements OnMapReadyCallback, MapboxMap.OnMapClickListener, PermissionsListener {
 
     // Variables for adding location layer
@@ -144,8 +139,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Mapbox.getInstance(getContext(), getString(R.string.mapbox_access_token)); // might have to move this to onCreateView
-
+        Mapbox.getInstance(getContext(), getString(R.string.mapbox_access_token));
         getUserPreferences();
     }
 
@@ -158,7 +152,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
         mapView = view.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-
 
         return view;
     }
@@ -188,10 +181,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                 enableLocationComponent(style);
                 addDestinationIconSymbolLayer(style);
                 initSearchFab();
-                TrafficPlugin trafficPlugin = new TrafficPlugin(mapView, mapboxMap, style); // commenting this out to see if its working.
-                trafficPlugin.setVisibility(true);
+                TrafficPlugin trafficPlugin = new TrafficPlugin(mapView, mapboxMap, style); // Initialising the traffic plugin.
+                trafficPlugin.setVisibility(true); // This shows the traffic layer on the map.
 
-                //addUserLocations();
 
                 mapboxMap.addOnMapClickListener(MapsFragment.this::onMapClick); // not sure if this will work
                 searchBtn_map = view.findViewById(R.id.startButton);
@@ -212,6 +204,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
 
+                                    // Handling Firestore
                                     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                                     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -235,7 +228,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                                     dialog.cancel();
                                 }
                             });
-
                             builder.show();
                         }
                     }
@@ -258,10 +250,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                 // Add the symbol layer icon to map for future use
                 style.addImage(symbolIconId, BitmapFactory.decodeResource(
                         MapsFragment.this.getResources(), R.drawable.blue_marker_view));
-
                 // Create an empty GeoJSON source using the empty feature collection
                 setUpSource(style);
-
                 // Set up a new symbol layer for displaying the searched location's feature coordinates
                 setupLayer(style);
 
@@ -272,41 +262,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
         });
     }
 
-    //    @Override
-//    public void onMapReady(@NonNull MapboxMap mapboxMap) {
-//        this.mapboxMap = mapboxMap;
-//        mapboxMap.setStyle(getString(R.string.navigation_guidance_day), new Style.OnStyleLoaded() {
-//            @Override
-//            public void onStyleLoaded(@NonNull Style style) {
-//                // not sure why these two arent working --edit working now?
-//                enableLocationComponent(style);
-//                addDestinationIconSymbolLayer(style);
-//
-//                mapboxMap.addOnMapClickListener(MapsFragment.this::onMapClick); // not sure if this will work
-//                searchBtn_map = view.findViewById(R.id.startButton);
-//
-//                // On click listener for the search button
-//                searchBtn_map.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        boolean simulateRoute = true;
-//                        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
-//                                .directionsRoute(currentRoute).shouldSimulateRoute(simulateRoute)
-//                                .build();
-//
-//                        // Call this method with context from within an Activity
-//                        NavigationLauncher.startNavigation(getActivity(), options);
-//                    }
-//                });
-//            }
-//        });
-//
-//    }
-
+    // Method to handle the search functionality.
     private void initSearchFab() {
-
-        //TODO: Add geocoding types to the intent builder. This will allow for filtering landmarks based on type.
-        // Check discord for documentation on the above.
 
         Point originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
                 locationComponent.getLastKnownLocation().getLatitude()); // Getting origin point. THis is the user's current location.
@@ -320,10 +277,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                                 .proximity(originPoint) // Bias results closer to user's location.
                                 .backgroundColor(Color.parseColor("#EEEEEE"))
                                 .limit(10) // Limits search result to 10 locations.
-                                .geocodingTypes("") // This is how you filter landmarks based on preference.
-                                .geocodingTypes()
-                                //.addInjectedFeature(home)
-                                //.addInjectedFeature(work)
+                                .geocodingTypes("poi") // This is how you filter landmarks based on preference. MapBox deprecated methods so you can only search by POI now, filtering by landmark doesn't affect the data returned, its the same as filtering by poi.
                                 .build(PlaceOptions.MODE_CARDS))
                         .build(getActivity());
                 startActivityForResult(intent, REQUEST_CODE_AUTOCOMPLETE);
@@ -331,24 +285,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
             }
         });
     }
-
-    // Use a factory pattern for the users saved/favourited landmarks
-    // add user locations once initial functionality is sorted
-//    private void addUserLocations() {
-//        home = CarmenFeature.builder().text("Mapbox SF Office")
-//                .geometry(Point.fromLngLat(-122.3964485, 37.7912561))
-//                .placeName("50 Beale St, San Francisco, CA")
-//                .id("mapbox-sf")
-//                .properties(new JsonObject())
-//                .build();
-//
-//        work = CarmenFeature.builder().text("Mapbox DC Office")
-//                .placeName("740 15th Street NW, Washington DC")
-//                .geometry(Point.fromLngLat(-77.0338348, 38.899750))
-//                .id("mapbox-dc")
-//                .properties(new JsonObject())
-//                .build();
-//    }
 
     private void setUpSource(@NonNull Style loadedMapStyle) {
         loadedMapStyle.addSource(new GeoJsonSource(geojsonSourceLayerId));
@@ -403,39 +339,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     }
 
 
-//    @Override
-//    public void onMapReady(@NonNull MapboxMap mapboxMap) {
-//        this.mapboxMap = mapboxMap;
-//        mapboxMap.setStyle(getString(R.string.navigation_guidance_day), new Style.OnStyleLoaded() {
-//            @Override
-//            public void onStyleLoaded(@NonNull Style style) {
-//                // not sure why these two arent working --edit working now?
-//                enableLocationComponent(style);
-//                addDestinationIconSymbolLayer(style);
-//
-//                mapboxMap.addOnMapClickListener(MapsFragment.this::onMapClick); // not sure if this will work
-//                searchBtn_map = view.findViewById(R.id.startButton);
-//
-//                // On click listener for the search button
-//                searchBtn_map.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        boolean simulateRoute = true;
-//                        NavigationLauncherOptions options = NavigationLauncherOptions.builder()
-//                                .directionsRoute(currentRoute).shouldSimulateRoute(simulateRoute)
-//                                .build();
-//
-//                        // Call this method with context from within an Activity
-//                        NavigationLauncher.startNavigation(getActivity(), options);
-//                    }
-//                });
-//            }
-//        });
-//
-//    }
-//
-//    // Other methods
-
     SymbolLayer destinationSymbolLayer;
     private void addDestinationIconSymbolLayer(@NonNull Style loadedMapStyle) {
         loadedMapStyle.addImage("destination-icon-id",
@@ -469,7 +372,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
         getRoute(originPoint, destinationPoint);
         searchBtn_map.setEnabled(true);
-        searchBtn_map.setBackgroundResource(R.color.mapboxBlue); // This color is not showing for some reason.
+        searchBtn_map.setBackgroundResource(R.color.mapboxBlue); // This color doesn't show, the theme overides it.
 
         mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition((new CameraPosition.Builder()).target(point).zoom(14).build()));
         lastLoc = point;
@@ -561,8 +464,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
                         useMetric = (Boolean) data.get("metric");
                     }
-                } else {
-
                 }
             }
         });
@@ -574,7 +475,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     }
 
 
-    // Have to make all of these public otherwise it clashes with the fragments public setting
+    // Lifecycle methods
     @Override
     public void onStart() {
         super.onStart();
