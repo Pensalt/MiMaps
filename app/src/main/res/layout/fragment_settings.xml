@@ -85,6 +85,18 @@
         android:layout_width="match_parent"
         android:layout_height="53dp" />
 
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="253dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="CheckBox" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="31dp" />
+
     <Switch
         android:id="@+id/swUnitsPrefs"
         android:layout_width="283dp"
