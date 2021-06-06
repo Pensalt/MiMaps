@@ -6,19 +6,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mapbox.mapboxsdk.geometry.LatLng;
+
 import java.util.ArrayList;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+public class LandmarksListAdapter extends RecyclerView.Adapter<LandmarksListAdapter.MyViewHolder> {
 
     Context context;
     ArrayList<String[]> favorite_landmarks;
 
-    public MyAdapter(Context ct, ArrayList<String[]> favorite_landmarks) {
+    public LandmarksListAdapter(Context ct, ArrayList<String[]> favorite_landmarks) {
         context = ct;
         this.favorite_landmarks = favorite_landmarks;
     }
@@ -37,7 +38,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.view_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(), favorite_landmarks.get(position)[1] + ", " + favorite_landmarks.get(position)[2], Toast.LENGTH_SHORT).show();
+                MainActivity.getStaticFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapsFragment(new LatLng(Double.parseDouble(favorite_landmarks.get(position)[1]), Double.parseDouble(favorite_landmarks.get(position)[2])))).commit();
             }
         });
     }

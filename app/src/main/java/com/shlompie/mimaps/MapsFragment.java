@@ -118,8 +118,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     private String symbolIconId = "symbolIconId";
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
 
+    private LatLng startPoint;
 
-
+    public MapsFragment(LatLng startPoint){
+        this.startPoint = startPoint;
+    }
 
     public MapsFragment() {
         // Required empty public constructor
@@ -256,6 +259,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
                 // Set up a new symbol layer for displaying the searched location's feature coordinates
                 setupLayer(style);
+
+                if(startPoint != null){
+                    mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition((new CameraPosition.Builder()).target(startPoint).zoom(14).build()));
+                }
             }
         });
     }
