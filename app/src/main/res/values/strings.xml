@@ -16,7 +16,7 @@
 
     <string name="close_btn">X</string>
     <string name="preferred_units_settings">Preferred Units of Measure</string>
-    <string name="metric_imperial_heading">Metric / Imperial Units</string>
+    <string name="metric_imperial_heading">Imperial / Metric</string>
 
     <string name="user_location_permission_explanation">This app needs location permissions to show its functionality.</string>
     <string name="user_location_permission_not_granted">You didn\'t grant location permissions.</string>

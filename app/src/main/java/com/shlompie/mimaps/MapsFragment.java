@@ -17,7 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 // classes needed to initialize map
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.database.DataSnapshot;
@@ -27,6 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 //import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
 import com.mapbox.api.geocoding.v5.GeocodingCriteria;
 import com.mapbox.api.geocoding.v5.MapboxGeocoding;
@@ -142,7 +146,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
         Mapbox.getInstance(getContext(), getString(R.string.mapbox_access_token)); // might have to move this to onCreateView
 
-
+        getUserPreferences();
     }
 
     @Override
@@ -184,7 +188,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                 enableLocationComponent(style);
                 addDestinationIconSymbolLayer(style);
                 initSearchFab();
-                //TrafficPlugin trafficPlugin = new TrafficPlugin(mapView, mapboxMap, style); // commenting this out to see if its working.
+                TrafficPlugin trafficPlugin = new TrafficPlugin(mapView, mapboxMap, style); // commenting this out to see if its working.
+                trafficPlugin.setVisibility(true);
 
                 //addUserLocations();
 
@@ -543,34 +548,25 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
     // Method to get user preferences from firebase.
 //    User u = new User(); // Declaring a user object so we can get the users info from firebase.
-//    public void getUserPreferences(){
-//        // Getting instances of FirebaseAuth and FirebaseDatabase.
-//        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-//        FirebaseDatabase db = FirebaseDatabase.getInstance();
-//
-//        DatabaseReference ref = db.getReference(mAuth.getCurrentUser().getUid());
-//        ref.child("user preferences").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                //u = snapshot.
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//
-//
-//
-//
-//        useMetric = true; // true is just a placeholder for now. Rather metric than imperial
-//
-//        //TODO: Create user object. Need to figure out how it will work with favourite POI first.
-//
-//        //TODO: Use firebase to get users preference.
-//    }
+    public void getUserPreferences(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("user_preferences").whereEqualTo("user_email", user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Map<String, Object> data = document.getData();
+
+                        useMetric = (Boolean) data.get("metric");
+                    }
+                } else {
+
+                }
+            }
+        });
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -589,6 +585,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     public void onResume() {
         super.onResume();
         mapView.onResume();
+        getUserPreferences();
     }
 
     @Override

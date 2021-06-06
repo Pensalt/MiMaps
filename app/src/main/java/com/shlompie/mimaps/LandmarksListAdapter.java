@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import java.util.ArrayList;
@@ -41,6 +43,20 @@ public class LandmarksListAdapter extends RecyclerView.Adapter<LandmarksListAdap
                 MainActivity.getStaticFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapsFragment(new LatLng(Double.parseDouble(favorite_landmarks.get(position)[1]), Double.parseDouble(favorite_landmarks.get(position)[2])))).commit();
             }
         });
+        holder.delete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = favorite_landmarks.get(position)[3];
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("saved_landmarks").document(id).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        MainActivity.getStaticFragmentManager().beginTransaction().replace(R.id.fragment_container, new LandmarksFragment()).commit();
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -52,11 +68,13 @@ public class LandmarksListAdapter extends RecyclerView.Adapter<LandmarksListAdap
 
         TextView title;
         Button view_btn;
+        Button delete_btn;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.row_title);
             view_btn = itemView.findViewById(R.id.view_btn);
+            delete_btn = itemView.findViewById(R.id.delete_btn);
         }
 
     }

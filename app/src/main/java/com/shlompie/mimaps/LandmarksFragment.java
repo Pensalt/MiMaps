@@ -65,14 +65,14 @@ public class LandmarksFragment extends Fragment {
 
         ArrayList<String[]> favorite_addresses = new ArrayList<>();
 
-        db.collection("saved_landmarks").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("saved_landmarks").whereEqualTo("user_email", currentUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Map<String, Object> data = document.getData();
 
-                        favorite_addresses.add(new String[]{data.get("title").toString(), data.get("latitude").toString(), data.get("longitude").toString()});
+                        favorite_addresses.add(new String[]{data.get("title").toString(), data.get("latitude").toString(), data.get("longitude").toString(), document.getId()});
                     }
 
                     LandmarksListAdapter landmarksListAdapter = new LandmarksListAdapter(view.getContext(), favorite_addresses);
