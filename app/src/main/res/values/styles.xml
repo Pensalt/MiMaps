@@ -9,7 +9,7 @@
         <item name="colorPrimaryDark">#005ccb</item>
         <item name="colorAccent">#0c0e59</item>
         <item name="android:textColorHint">@color/white</item>
-        <!-- <item name="android:colorButtonNormal">@color/buttons</item> -->
+        <!-- <item name="android:colorButtonNormal">@color/buttons</item> XD-->
 
     </style>
 
