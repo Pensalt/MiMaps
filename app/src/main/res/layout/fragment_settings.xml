@@ -27,7 +27,9 @@
         android:layout_height="140dp"
         app:lottie_url="https://assets7.lottiefiles.com/private_files/lf30_A6ckDx.json"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"/>
+        app:lottie_loop="true"
+        android:src="@drawable/compass"
+        app:srcCompat="@drawable/compass"/>
 
     <Space
         android:layout_width="match_parent"
@@ -43,7 +45,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="16dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username_text"
@@ -62,7 +64,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="25dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_text"
@@ -73,9 +75,9 @@
             android:id="@+id/emailET_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/white"
             android:background="@color/cardview_dark_background"
-            android:hint="Email Address"/>
+            android:hint="Email Address"
+            android:textColorHint="@color/white" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -85,26 +87,43 @@
 
     <Switch
         android:id="@+id/swUnitsPrefs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="283dp"
+        android:layout_height="43dp"
+        android:layout_gravity="center"
         android:height="15dp"
+        android:background=""
+        android:gravity="center"
         android:text="@string/metric_imperial_heading"
-        android:textSize="18sp"
         android:textColor="@color/white"
+        android:textSize="20sp"
         android:thumbTint="@color/colorPrimaryDark"
-        android:trackTint="@color/colorPrimary"/>
+        android:trackTint="@color/colorPrimary" />
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 
+    <Button
+        android:id="@+id/btnClear"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/roundedbuttons"
+        android:gravity="center"
+        android:text="Clear History"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="16dp" />
 
     <Button
         android:id="@+id/btnLogout"
         style="@android:style/Widget.DeviceDefault.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-
         android:layout_gravity="center"
         android:background="@drawable/roundedbuttons"
         android:gravity="center"
