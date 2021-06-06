@@ -12,7 +12,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="56dp" />
+        android:layout_height="30dp" />
 
 <!--    <ImageView-->
 <!--        android:id="@+id/logoSI"-->
@@ -81,9 +81,9 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-            <Space
+    <Space
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="53dp" />
 
     <Switch
         android:id="@+id/swUnitsPrefs"
