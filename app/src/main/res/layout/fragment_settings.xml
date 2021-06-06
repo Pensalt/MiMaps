@@ -56,19 +56,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/userNameET_settings"
-            android:focusable="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/white"
-            android:background="@color/cardview_dark_background"
-            android:hint="Username"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="25dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_text"
