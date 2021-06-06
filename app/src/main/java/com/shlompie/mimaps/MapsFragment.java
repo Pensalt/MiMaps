@@ -184,7 +184,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                 enableLocationComponent(style);
                 addDestinationIconSymbolLayer(style);
                 initSearchFab();
-                TrafficPlugin trafficPlugin = new TrafficPlugin(mapView, mapboxMap, style);
+                //TrafficPlugin trafficPlugin = new TrafficPlugin(mapView, mapboxMap, style); // commenting this out to see if its working.
 
                 //addUserLocations();
 
@@ -304,7 +304,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
         // Check discord for documentation on the above.
 
         Point originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
-                locationComponent.getLastKnownLocation().getLatitude()); // Getting origin point.
+                locationComponent.getLastKnownLocation().getLatitude()); // Getting origin point. THis is the user's current location.
 
         view.findViewById(R.id.fab_location_search).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,7 +315,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                                 .proximity(originPoint) // Bias results closer to user's location.
                                 .backgroundColor(Color.parseColor("#EEEEEE"))
                                 .limit(10) // Limits search result to 10 locations.
-                                .geocodingTypes() // This is how you filter landmarks based on preference.
+                                .geocodingTypes("") // This is how you filter landmarks based on preference.
+                                .geocodingTypes()
                                 //.addInjectedFeature(home)
                                 //.addInjectedFeature(work)
                                 .build(PlaceOptions.MODE_CARDS))

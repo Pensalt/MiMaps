@@ -16,7 +16,7 @@ public class User {
         this.metric = metric;
     }
 
-    public User() {}
+    public User() {} // This empty constructor is needed to create an empty user object to populate with data from firebase.
 
 
 

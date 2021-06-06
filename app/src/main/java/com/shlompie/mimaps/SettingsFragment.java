@@ -17,9 +17,10 @@ import com.google.android.material.textfield.TextInputLayout;
 public class SettingsFragment extends Fragment {
     private View view;
     ImageView logoImg;
-    TextInputLayout usernameTxtInputLayout, emailTxtInputLayout;
+    TextInputLayout emailTxtInputLayout;
     SwitchMaterial metSwitch;
     Button logoutBTN;
+
 
 
 
@@ -43,6 +44,10 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_settings,container,false);
+
+        metSwitch = view.findViewById(R.id.swUnitsPrefs);
+        emailTxtInputLayout = view.findViewById(R.id.email_text);
+        logoutBTN = view.findViewById(R.id.btnLogout);
 
         // Inflate the layout for this fragment
         return view;
