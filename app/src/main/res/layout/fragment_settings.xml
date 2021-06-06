@@ -31,9 +31,7 @@
         android:layout_height="140dp"
         app:lottie_url="https://assets7.lottiefiles.com/private_files/lf30_A6ckDx.json"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        android:src="@drawable/compass"
-        app:srcCompat="@drawable/compass"/>
+        app:lottie_loop="true"/>
 
     <Space
         android:layout_width="match_parent"
