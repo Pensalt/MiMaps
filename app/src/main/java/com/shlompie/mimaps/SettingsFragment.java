@@ -22,7 +22,7 @@ public class SettingsFragment extends Fragment {
     Button logoutBTN;
 
 
-
+// allowing seb to pull
 
     public SettingsFragment() {
         // Required empty public constructor
