@@ -41,12 +41,14 @@
 
         <EditText
             android:id="@+id/emailEditText"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:inputType="textEmailAddress"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/white"
-            android:background="@color/cardview_dark_background"
-            android:hint="Email"/>
+            android:textColorHint="@color/black"
+            android:background="@color/buttons"
+            android:hint="Email"
+            android:layout_gravity="center"
+            android:gravity="center" />
     </com.google.android.material.textfield.TextInputLayout>
 
 <!--    <EditText-->
@@ -87,12 +89,14 @@
 
         <EditText
             android:id="@+id/etPasswordSI"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:inputType="textPassword"
             android:layout_height="wrap_content"
-            android:background="@color/cardview_dark_background"
-            android:textColorHint="@color/white"
-            android:hint="Password"/>
+            android:background="@color/buttons"
+            android:textColorHint="@color/black"
+            android:hint="Password"
+            android:layout_gravity="center"
+            android:gravity="center"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Space
@@ -101,8 +105,8 @@
 
     <Button
         android:id="@+id/btnLoginSI"
-        android:layout_width="143dp"
-        android:layout_height="61dp"
+        android:layout_width="145dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
         android:background="@drawable/roundedbuttons"
         android:backgroundTint="#FFFFFF"

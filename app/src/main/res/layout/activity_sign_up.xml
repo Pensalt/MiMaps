@@ -62,13 +62,14 @@
 
             <EditText
                 android:id="@+id/etEmailSU"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
-
                 android:inputType="textEmailAddress"
                 android:background="@color/buttons"
                 android:textColorHint="@color/black"
-                android:hint="Username"/>
+                android:hint="Username"
+                android:layout_gravity="center"
+                android:gravity="center"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -96,12 +97,14 @@
 
             <EditText
                 android:id="@+id/etPasswordSU"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:background="@color/buttons"
                 android:textColorHint="@color/black"
-                android:hint="Password"/>
+                android:hint="Password"
+                android:layout_gravity="center"
+                android:gravity="center"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -130,12 +133,14 @@
 
             <EditText
                 android:id="@+id/etConPassSU"
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:background="@color/buttons"
-                android:textColorHint="@color/white"
-                android:hint="Confirm Password"/>
+                android:textColorHint="@color/black"
+                android:hint="Confirm Password"
+                android:layout_gravity="center"
+                android:gravity="center"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -145,8 +150,8 @@
 
         <Button
             android:id="@+id/btnSignUpSU"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_width="145dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
             android:background="@drawable/roundedbuttons"
             android:gravity="center"

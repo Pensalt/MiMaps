@@ -58,11 +58,13 @@
 
         <EditText
             android:id="@+id/emailET_settings"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:background="@color/buttons"
             android:hint="Email Address"
-            android:textColorHint="@color/white" />
+            android:textColorHint="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
