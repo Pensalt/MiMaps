@@ -5,7 +5,7 @@
     <color name="red">#FF0000</color>
     <color name="colorPrimaryDark">#FFABABAB</color>
     <color name="colorPrimary">#FFABABAB</color>
-    <color name="slateBG">#18191a</color>
+    <color name="slateBG">#FF000000</color>
     <color name="blue_grey_800_overlay">#FF000000</color>
 
     <color name="buttons">#FFABABAB</color>

@@ -58,7 +58,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/user_text_input_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/black">
 
             <EditText
                 android:id="@+id/etEmailSU"
@@ -67,7 +68,7 @@
                 android:inputType="textEmailAddress"
                 android:background="@color/buttons"
                 android:textColorHint="@color/black"
-                android:hint="Username"
+                android:hint="Email"
                 android:layout_gravity="center"
                 android:gravity="center"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -93,7 +94,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/pass_text_input_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/black">
 
             <EditText
                 android:id="@+id/etPasswordSU"
@@ -104,7 +106,7 @@
                 android:textColorHint="@color/black"
                 android:hint="Password"
                 android:layout_gravity="center"
-                android:gravity="center"/>
+                android:gravity="center" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -129,7 +131,8 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/confirm_pass_text_input_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/black">
 
             <EditText
                 android:id="@+id/etConPassSU"

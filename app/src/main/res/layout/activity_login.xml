@@ -37,18 +37,19 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/user_text_input_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/black">
 
         <EditText
             android:id="@+id/emailEditText"
             android:layout_width="350dp"
-            android:inputType="textEmailAddress"
             android:layout_height="wrap_content"
-            android:textColorHint="@color/black"
-            android:background="@color/buttons"
-            android:hint="Email"
             android:layout_gravity="center"
-            android:gravity="center" />
+            android:background="@color/buttons"
+            android:gravity="center"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/black"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 <!--    <EditText-->
@@ -85,18 +86,19 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/pass_text_input_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/black">
 
         <EditText
             android:id="@+id/etPasswordSI"
             android:layout_width="350dp"
-            android:inputType="textPassword"
             android:layout_height="wrap_content"
-            android:background="@color/buttons"
-            android:textColorHint="@color/black"
-            android:hint="Password"
             android:layout_gravity="center"
-            android:gravity="center"/>
+            android:background="@color/buttons"
+            android:gravity="center"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColorHint="@color/black"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Space
