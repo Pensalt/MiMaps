@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
 
                 android:inputType="textEmailAddress"
-                android:background="@color/cardview_dark_background"
+                android:background="@color/buttons"
                 android:textColorHint="@color/black"
                 android:hint="Username"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:background="@color/cardview_dark_background"
+                android:background="@color/buttons"
                 android:textColorHint="@color/black"
                 android:hint="Password"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -133,7 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
-                android:background="@color/cardview_dark_background"
+                android:background="@color/buttons"
                 android:textColorHint="@color/white"
                 android:hint="Confirm Password"/>
         </com.google.android.material.textfield.TextInputLayout>
