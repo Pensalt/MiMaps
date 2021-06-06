@@ -12,14 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.model.Document;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -77,8 +75,8 @@ public class LandmarksFragment extends Fragment {
                         favorite_addresses.add(new String[]{data.get("title").toString(), data.get("latitude").toString(), data.get("longitude").toString()});
                     }
 
-                    MyAdapter myAdapter = new MyAdapter(view.getContext(), favorite_addresses);
-                    recyclerView.setAdapter(myAdapter);
+                    LandmarksListAdapter landmarksListAdapter = new LandmarksListAdapter(view.getContext(), favorite_addresses);
+                    recyclerView.setAdapter(landmarksListAdapter);
                     recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
                 } else {
 
