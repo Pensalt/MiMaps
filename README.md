@@ -31,7 +31,7 @@ MiMaps follow industry standard guideline to ensure all personal information is 
 | Name | Student Number |
 | ------ | ------ |
 | Riaz B. | 18002848 |
-| Callum C. | 19010230 |
+| Callum S. | 19010230 |
 | Sebastian G. | 19004412 |
 | James B. | 19011763 |
 
