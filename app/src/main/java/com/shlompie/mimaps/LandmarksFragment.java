@@ -22,11 +22,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LandmarksFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class LandmarksFragment extends Fragment {
 
     RecyclerView recyclerView;
@@ -35,13 +30,6 @@ public class LandmarksFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment LandmarksFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static LandmarksFragment newInstance() {
         return new LandmarksFragment();
     }
@@ -60,11 +48,13 @@ public class LandmarksFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
+        // Getting firebase instances.
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        ArrayList<String[]> favorite_addresses = new ArrayList<>();
+        ArrayList<String[]> favorite_addresses = new ArrayList<>(); // Arraylist of the user's favourite addresses.
 
+        // Handling getting the user's saved landmarks.
         db.collection("saved_landmarks").whereEqualTo("user_email", currentUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

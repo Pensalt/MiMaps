@@ -1,4 +1,4 @@
-package com.shlompie.mimaps;
+ package com.shlompie.mimaps;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -22,7 +22,7 @@ public class LandmarksListAdapter extends RecyclerView.Adapter<LandmarksListAdap
     ArrayList<String[]> favorite_landmarks;
 
     public LandmarksListAdapter(Context ct, ArrayList<String[]> favorite_landmarks) {
-        context = ct;
+        context = ct; // Declaring the context.
         this.favorite_landmarks = favorite_landmarks;
     }
 

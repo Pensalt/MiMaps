@@ -111,8 +111,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
     private boolean useMetric; // Used to control the switch between metric and imperial system.
 
-    private CarmenFeature home;
-    private CarmenFeature work;
     private String geojsonSourceLayerId = "geojsonSourceLayerId";
     private String symbolIconId = "symbolIconId";
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;

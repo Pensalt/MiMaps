@@ -34,8 +34,6 @@ import java.util.Map;
 public class SettingsFragment extends Fragment {
     private View view;
 
-// allowing seb to pull
-
     public SettingsFragment() {
         // Required empty public constructor
     }
@@ -59,13 +57,14 @@ public class SettingsFragment extends Fragment {
 
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         EditText emailField = view.findViewById(R.id.emailET_settings);
-        emailField.setText(currentUser.getEmail());
+        emailField.setText(currentUser.getEmail()); // Getting the user's email from firebase to display to them.
 
         Switch swUnitsPrefs = view.findViewById(R.id.swUnitsPrefs);
         CheckBox outdoor_chk = view.findViewById(R.id.outdoor_chk);
         CheckBox dining_chk = view.findViewById(R.id.dining_chk);
         CheckBox cultural_chk = view.findViewById(R.id.cultural_chk);
 
+        // Methods to control only one checkbox being checked at a time.
         outdoor_chk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,17 +87,18 @@ public class SettingsFragment extends Fragment {
             }
         });
 
+        // Method to log out the user.
         view.findViewById(R.id.btnLogout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                mAuth.signOut();
+                mAuth.signOut(); // Signing the current user out of firebase auth.
                 Intent goToMain = new Intent(v.getContext(), LoginActivity.class);
                 startActivity(goToMain);
             }
         });
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance(); // Getting the instance of firestore.
 
         db.collection("user_preferences").whereEqualTo("user_email", currentUser.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -107,17 +107,17 @@ public class SettingsFragment extends Fragment {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Map<String, Object> data = document.getData();
 
+                        // Setting the 'switches' according to the user's preferences stored in firestore.
                         swUnitsPrefs.setChecked((Boolean) data.get("metric"));
                         outdoor_chk.setChecked((Boolean) data.get("outdoor"));
                         dining_chk.setChecked((Boolean) data.get("dining"));
                         cultural_chk.setChecked((Boolean) data.get("cultural"));
                     }
-                } else {
-
                 }
             }
         });
 
+        // Method to save the user's settings when they click the save button.
         view.findViewById(R.id.btnSave).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
