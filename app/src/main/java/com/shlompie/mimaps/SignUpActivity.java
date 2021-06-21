@@ -46,7 +46,6 @@ public class SignUpActivity extends AppCompatActivity {
         confirmBtn = findViewById(R.id.btnSignUpSU);
         usernameTxtInputLayout = findViewById(R.id.user_text_input_layout);
 
-
         mAuth = FirebaseAuth.getInstance(); // Initializing the FirebaseAuth instance.
 
         confirmBtn.setOnClickListener(new View.OnClickListener() {
@@ -74,12 +73,14 @@ public class SignUpActivity extends AppCompatActivity {
                             {
                                 Log.i("signup","Sign Up successful");
 
+                                // Handling firebase instances
                                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                                 Map<String, Object> data = new HashMap<>();
                                 data.put("user_email", currentUser.getEmail());
                                 data.put("metric", true);
+                                // Setting the users preference to have no bias on signup.
                                 data.put("outdoor", false);
                                 data.put("dining", false);
                                 data.put("cultural", false);
