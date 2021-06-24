@@ -40,6 +40,7 @@ public class LandmarksListAdapter extends RecyclerView.Adapter<LandmarksListAdap
         holder.view_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // POI geo information is sent to the map. This will be used to generate a route to the landmark from the users current location.
                 MainActivity.getStaticFragmentManager().beginTransaction().replace(R.id.fragment_container, new MapsFragment(new LatLng(Double.parseDouble(favorite_landmarks.get(position)[1]), Double.parseDouble(favorite_landmarks.get(position)[2])))).commit();
             }
         });

@@ -115,17 +115,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     private String symbolIconId = "symbolIconId";
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
 
-    private LatLng startPoint;
+    private LatLng landmarkLocation; // Location of the favourite landmark selected by the user in the landmarks page.
 
-    public MapsFragment(LatLng startPoint){
-        this.startPoint = startPoint;
-    }
+    public MapsFragment(LatLng landmarkLocation){
+        this.landmarkLocation = landmarkLocation;
+    } // Constructor for when the user selects a landmark as is returned to the map asset.
 
     public MapsFragment() {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static MapsFragment newInstance(String param1, String param2) {
         MapsFragment fragment = new MapsFragment();
         Bundle args = new Bundle();
@@ -253,8 +252,20 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                 // Set up a new symbol layer for displaying the searched location's feature coordinates
                 setupLayer(style);
 
-                if(startPoint != null){
-                    mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition((new CameraPosition.Builder()).target(startPoint).zoom(14).build()));
+                // This is handling when the user is sent to the map from the landmarks fragment after clicking to view one of their favourite landmarks.
+                if(landmarkLocation != null){
+                    mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition((new CameraPosition.Builder()).target(landmarkLocation).zoom(14).build()));
+
+                    // Generating the route to the users selected location.
+
+                    // Building route to the searched location \\
+                    Point originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
+                            locationComponent.getLastKnownLocation().getLatitude()); // Getting origin point.
+                    // Getting landmark location LatLon
+                    double lat = landmarkLocation.getLatitude();
+                    double lon = landmarkLocation.getLongitude();
+                    Point destinationPoint = Point.fromLngLat(lon,lat);
+                    getRoute(originPoint, destinationPoint); // Generating the route to the users chosen landmark.
                 }
             }
         });
@@ -264,7 +275,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     private void initSearchFab() {
 
         Point originPoint = Point.fromLngLat(locationComponent.getLastKnownLocation().getLongitude(),
-                locationComponent.getLastKnownLocation().getLatitude()); // Getting origin point. THis is the user's current location.
+                locationComponent.getLastKnownLocation().getLatitude()); // Getting origin point. This is the user's current location.
 
         view.findViewById(R.id.fab_location_search).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,6 +306,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
         ));
     }
 
+    // Result of searching a location using the search functionality.
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
