@@ -266,6 +266,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
                     double lon = landmarkLocation.getLongitude();
                     Point destinationPoint = Point.fromLngLat(lon,lat);
                     getRoute(originPoint, destinationPoint); // Generating the route to the users chosen landmark.
+
+                    //addDestinationIconSymbolLayer(style); // adding the icon
+                    // Enabling the user to start navigation to their selected favourite landmark.
+                    searchBtn_map.setEnabled(true);
+                    searchBtn_map.setBackgroundResource(R.color.mapboxBlue); // This color doesn't show, the theme overrides it.
                 }
             }
         });
@@ -382,7 +387,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
 
         getRoute(originPoint, destinationPoint);
         searchBtn_map.setEnabled(true);
-        searchBtn_map.setBackgroundResource(R.color.mapboxBlue); // This color doesn't show, the theme overides it.
+        searchBtn_map.setBackgroundResource(R.color.mapboxBlue); // This color doesn't show, the theme overrides it.
 
         mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition((new CameraPosition.Builder()).target(point).zoom(14).build()));
         lastLoc = point;
