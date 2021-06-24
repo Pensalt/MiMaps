@@ -88,7 +88,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 db.collection("user_preferences").document(currentUser.getEmail()).set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Intent goToMain = new Intent(SignUpActivity.this, MainActivity.class);
+                                        Intent goToMain = new Intent(SignUpActivity.this, MainActivity.class); // @Sarina you missed this, user is directed straight to the main activity on signup.
                                         startActivity(goToMain);
                                     }
                                 });
