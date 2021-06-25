@@ -61,7 +61,7 @@ public class LandmarksFragment extends Fragment {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Map<String, Object> data = document.getData();
-
+                        // Adding each of the current user's favourite addresses so they can be viewed or deleted.
                         favorite_addresses.add(new String[]{data.get("title").toString(), data.get("latitude").toString(), data.get("longitude").toString(), document.getId()});
                     }
 

@@ -495,6 +495,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     public void onStart() {
         super.onStart();
         mapView.onStart();
+        getUserPreferences();
     }
 
     @Override
