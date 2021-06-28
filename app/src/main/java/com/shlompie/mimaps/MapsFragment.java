@@ -465,7 +465,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     }
 
     // Method to get user preferences from firebase.
-//    User u = new User(); // Declaring a user object so we can get the users info from firebase.
+    // User u = new User(); // Declaring a user object so we can get the users info from firebase.
     public void getUserPreferences(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -488,7 +488,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
-
 
     // Lifecycle methods
     @Override
@@ -534,6 +533,5 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Mapbox
         super.onLowMemory();
         mapView.onLowMemory();
     }
-
 
 }
