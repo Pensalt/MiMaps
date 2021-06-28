@@ -26,7 +26,7 @@ MiMaps follow industry standard guideline to ensure all personal information is 
 )](https://play.google.com/store/apps/details?id=com.shlompie.mimaps)
 
 ## App Video
-[![N|Solid](https://cdn.vox-cdn.com/thumbor/o5YGpoRPaflraEPTD1nOCOm8o2k=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/60142401/acastro_180403_1777_youtube_0001.0.jpg)](https://cdn.discordapp.com/attachments/699592534581575760/851471131834580992/MiMaps.mp4)
+[![N|Solid](https://cdn.vox-cdn.com/thumbor/o5YGpoRPaflraEPTD1nOCOm8o2k=/0x0:2040x1360/1200x800/filters:focal(857x517:1183x843)/cdn.vox-cdn.com/uploads/chorus_image/image/60142401/acastro_180403_1777_youtube_0001.0.jpg)](https://cdn.discordapp.com/attachments/831115212294717522/858309540953194496/1337x.mp4)
 
 
 ## Contributors
