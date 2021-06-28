@@ -21,6 +21,10 @@ MiMaps was designed to deliver the best navigational experience in the simplest 
 ## _Built With Security_
 MiMaps follow industry standard guideline to ensure all personal information is secured! We implemented security throughout the app to guide users to choose secure passwords rather than weak passwords. MiMaps collects and logs the bare minimum amount of user data.
 
+## Coming Soon To Google Play Store
+[![N|Solid](https://media.discordapp.net/attachments/699592534581575760/859078334033559612/unknown.png?width=1025&height=362
+)](https://play.google.com/store/apps/details?id=com.shlompie.mimaps)
+
 ## Get It On Google Play
 [![N|Solid](https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg
 )](https://play.google.com/store/apps/details?id=com.shlompie.mimaps)
