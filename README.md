@@ -18,6 +18,9 @@ Reach your destination faster and easier with MiMaps. View live traffic along yo
 
 MiMaps was designed to deliver the best navigational experience in the simplest way possible, without any distracting features! We believe simplicity is key and are proud to deliver an Ad-Free Navigational App with no In-App Purchases required! Use it for free on any device and get to your destinations faster!
 
+## Changelog:
+To view the Changelog, click [HERE](https://github.com/OPSC7312-VCDN-2021/MiMaps/blob/master/CHANGELOG.md)
+
 ## _Built With Security_
 MiMaps follow industry standard guideline to ensure all personal information is secured! We implemented security throughout the app to guide users to choose secure passwords rather than weak passwords. MiMaps collects and logs the bare minimum amount of user data.
 
